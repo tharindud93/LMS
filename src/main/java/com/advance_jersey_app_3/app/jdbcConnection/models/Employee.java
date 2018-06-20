@@ -4,7 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class Employee {
 	
 	@Id
@@ -12,18 +18,30 @@ public class Employee {
 	int emp_id=0;
 	
 	@Column
+	@NotBlank (message = "Name cannot be null")
+	@NotNull(message = "Name cannot be null")
 	String name;
 
 	@Column
+	@NotBlank (message = "Email cannot be null")
+	@Email
+	@Pattern(regexp ="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}",message = "pattern missmatch")
+	@NotNull(message = "Email cannot be null")
 	String email;
 	
 	@Column
+	@NotBlank (message = "Telephone number cannot be null")
+	@NotNull(message = "Telephone number cannot be null")
 	String tel_no;
 	
 	@Column
+	@NotBlank (message = "Address cannot be null")
+	@NotNull(message = "Address cannot be null")
 	String Address;
 
 	@Column
+	@NotBlank(message = "age cannot be blank")
+	@NotNull(message = "age cannot be blank")
 	int age;
 	
 	

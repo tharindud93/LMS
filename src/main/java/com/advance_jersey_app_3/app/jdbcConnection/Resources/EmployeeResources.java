@@ -6,6 +6,7 @@ import java.util.List;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -21,8 +22,8 @@ import com.advance_jersey_app_3.app.jdbcConnection.models.Employee;
 import com.advance_jersey_app_3.app.jdbcConnection.services.EmployeeService;
 
 @Path("employees")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+@Produces(value = {MediaType.APPLICATION_JSON,MediaType.TEXT_XML})
+@Consumes(value = {MediaType.APPLICATION_JSON,MediaType.TEXT_XML})
 public class EmployeeResources {
 
 	EmployeeService employeeService = new EmployeeService();
@@ -42,7 +43,7 @@ public class EmployeeResources {
 	} 
 	
 	@POST
-	public Response createEmployee(Employee emp) throws ClassNotFoundException, SQLException{
+	public Response createEmployee(@Valid Employee emp) throws ClassNotFoundException, SQLException{
 		boolean result = employeeService.setEmployee(emp);
 		if(!result) {
 			return Response.ok(emp).build();
@@ -76,6 +77,4 @@ public class EmployeeResources {
 			return Response.ok(jsonObject).build();
 		}
 	}
-
-	
 }
